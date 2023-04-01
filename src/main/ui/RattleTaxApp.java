@@ -23,7 +23,9 @@ public class RattleTaxApp {
         mainInput.setBounds(150,150,200,25);
         mainPanel.add(mainInput);
 
-        mainFrame.setVisible(false);
+        mainFrame.setVisible(true);
+
+
 
     }
 
