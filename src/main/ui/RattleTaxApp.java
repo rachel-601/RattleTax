@@ -1,29 +1,71 @@
 package ui;
 
-import javax.swing.*;
+import model.*;
+import java.util.Scanner;
 
 public class RattleTaxApp {
-
-
-    private JPanel mainPanel;
-    private JFrame mainFrame;
-    private JTextField mainInput;
-
+    private Profile profile;
+    private T4 t4;
+    private Scanner input;
 
     public RattleTaxApp() {
+        input = new Scanner(System.in);
+        input.useDelimiter("\n");
 
-        mainPanel = new JPanel();
-        mainFrame = new JFrame("RattleTax");
-        mainFrame.setSize(500,250);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.add(mainPanel);
+        this.initializeProfile();
 
-        mainPanel.setLayout(null);
-        mainInput = new JTextField();
-        mainInput.setBounds(150,150,200,25);
-        mainPanel.add(mainInput);
+    }
 
-        mainFrame.setVisible(true);
+    private void initializeProfile() {
+        boolean runInit = true;
+        String userInput = null;
+
+        String firstName;
+        String lastName;
+        int sin;
+        String dob;
+        String address;
+        Boolean marital;
+
+        while (runInit) {
+
+
+        }
+
+        this.profile = new Profile(firstName, lastName, sin, dob, address, marital);
+
+
+    }
+
+    public void runApp() {
+        boolean runApp = true;
+        String userInput = null;
+
+        while (runApp) {
+            displayMenu();
+            userInput = input.next();
+            userInput = userInput.toLowerCase();
+
+            if (userInput.equals("q")) {
+                runApp = false;
+            } else {
+                processInput(userInput);
+            }
+        }
+
+        System.out.println("\nThanks for using the app!");
+
+    }
+
+    private void processInput(String userInput) {
+
+
+    }
+
+    private void displayMenu() {
+        System.out.println("\nPlease choose one of the following actions:");
+        System.out.println("\n1 to Fill out T1");
+        System.out.println("\n2 to Fill out T4");
 
 
 
