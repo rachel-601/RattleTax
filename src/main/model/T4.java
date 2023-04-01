@@ -7,8 +7,6 @@ public class T4 {
     private Profile user;
     private int year;
     private String employer;
-    private Integer id;
-    private Double input;
     private HashMap<Integer, Double> t4 = new HashMap<>();
 
     public T4(Profile user, int year, String employer) {
@@ -38,5 +36,22 @@ public class T4 {
         t4.replace(id, input);
     }
 
-    //
+    // getters
+    public Profile getUser() {
+        return user;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public String getEmployer() {
+        return employer;
+    }
+
+    public HashMap<Integer, Double> getT4() {
+        return t4;
+    }
+
+
 }
