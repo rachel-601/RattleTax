@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 // Represents the T4 form
 public class T4 {
@@ -8,6 +9,8 @@ public class T4 {
     private int year;
     private String employer;
     private HashMap<Integer, Double> t4 = new HashMap<>();
+
+    private Scanner input;
 
     public T4(Profile user, int year, String employer) {
         this.user = user;
@@ -29,6 +32,16 @@ public class T4 {
         t4.put(50, 0.0);
         t4.put(55, 0.0);
         t4.put(56, 0.0);
+    }
+
+    public void fillAll() {
+        t4.forEach((key, value) -> getInput(key));
+    }
+
+    public void getInput(Integer key) {
+        System.out.println("Enter amount for box " + key + ":");
+        Double userInput = Double.parseDouble(input.next());
+        t4.replace(key, userInput);
     }
 
     // EFFECTS: fills in box with
