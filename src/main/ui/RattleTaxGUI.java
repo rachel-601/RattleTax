@@ -25,6 +25,7 @@ public class RattleTaxGUI {
     // graphical elements
     private JFrame frame;
     private JPanel startPanel;
+    private JPanel profilePanel;
     private JPanel questionPanel;
     private JPanel finalPanel;
     private JButton startButton;
@@ -33,6 +34,13 @@ public class RattleTaxGUI {
     private JTextArea questionTextArea;
     private JTextArea finalForm;
     private JButton backToStartButton;
+    private JButton profileButton;
+    private JTextField firstNameField;
+    private JTextField lastNameField;
+    private JTextField sinField;
+    private JTextField dobField;
+    private JTextField addressField;
+    private JTextField maritalField;
 
 
     public RattleTaxGUI() {
@@ -73,6 +81,71 @@ public class RattleTaxGUI {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            switchToProfileSetup();
+        }
+    }
+
+    private void switchToProfileSetup() {
+        startPanel.setVisible(false);
+        frame.remove(startPanel);
+
+        profilePanel = new JPanel();
+        profilePanel.setLayout(null);
+
+        profileButton = new JButton(new ProfileAction());
+        profileButton.setBounds(100, 450,150,45);
+        profilePanel.add(profileButton);
+
+        firstNameField = new JTextField();
+        firstNameField.setBounds(100,150,100,45);
+        profilePanel.add(firstNameField);
+
+        lastNameField = new JTextField();
+        lastNameField.setBounds(200,150,100,45);
+        profilePanel.add(lastNameField);
+
+        sinField = new JTextField();
+        sinField.setBounds(300,150,100,45);
+        profilePanel.add(sinField);
+
+        dobField = new JTextField();
+        dobField.setBounds(400,150,100,45);
+        profilePanel.add(dobField);
+
+        addressField = new JTextField();
+        addressField.setBounds(500,150,100,45);
+        profilePanel.add(addressField);
+
+        maritalField = new JTextField();
+        maritalField.setBounds(600,150,100,45);
+        profilePanel.add(maritalField);
+
+
+        profilePanel.setVisible(true);
+        frame.add(profilePanel);
+
+        frame.setVisible(true);
+
+    }
+
+    private class ProfileAction extends AbstractAction {
+
+        public ProfileAction() {
+            super("Confirm");
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            firstName = firstNameField.getText();;
+            lastName = lastNameField.getText();;
+            sin = Integer.parseInt(sinField.getText());
+            dob = dobField.getText();;
+            address = addressField.getText();;
+            if (maritalField.getText() == "married") {
+                marital = true;
+            } else {
+                marital = false;
+            }
+            profile = new Profile(firstName,lastName,sin,dob,address,marital);
             switchToQuestionnaire();
         }
     }
@@ -92,8 +165,7 @@ public class RattleTaxGUI {
         questionTextField.setBounds(275,450,300,45);
         questionPanel.add(questionTextField);
 
-        questionTextArea = new JTextArea("Let get started with some basic info to make your profile!"
-                + "\nWhat is your first name?");
+        questionTextArea = new JTextArea("Please enter the year you are filing for.");
         questionTextArea.setBounds(100,50,300,200);
         questionPanel.add(questionTextArea);
 
@@ -116,63 +188,6 @@ public class RattleTaxGUI {
         public void actionPerformed(ActionEvent e) {
 
             if (questionCount == 1) {
-                firstName = questionTextField.getText();
-                questionTextField.setText("");
-                questionTextArea.setText("What is your last name?");
-                questionCount += 1;
-                return;
-            }
-
-            if (questionCount == 2) {
-                lastName = questionTextField.getText();
-                questionTextField.setText("");
-                questionTextArea.setText("What is SIN (social insurance number");
-                questionCount +=1;
-                return;
-            }
-
-            if (questionCount == 3) {
-                sin = Integer.parseInt(questionTextField.getText());
-                questionTextField.setText("");
-                questionTextArea.setText("What is your date of birth (MM/DD/YYYY)");
-                questionCount +=1;
-                return;
-            }
-
-            if (questionCount == 4) {
-                dob = questionTextField.getText();
-                questionTextField.setText("");
-                questionTextArea.setText("What is your address?");
-                questionCount +=1;
-                return;
-            }
-
-            if (questionCount == 5) {
-                address = questionTextField.getText();
-                questionTextField.setText("");
-                questionTextArea.setText("What is your marital status? Enter 'married'"
-                        + "or 'single' (without quotations)");
-                questionCount +=1;
-                return;
-            }
-
-            if (questionCount == 6) {
-                String status = questionTextField.getText();
-                if (status == "married") {
-                    marital = true;
-                } else {
-                    marital = false;
-                }
-
-                profile = new Profile(firstName, lastName, sin, dob, address, marital);
-
-                questionTextField.setText("");
-                questionTextArea.setText("Please enter the year you are filing for.");
-                questionCount +=1;
-                return;
-            }
-
-            if (questionCount == 7) {
                 year = Integer.parseInt(questionTextField.getText());
                 questionTextField.setText("");
                 questionTextArea.setText("Please enter the employer you are filing for.");
@@ -180,7 +195,7 @@ public class RattleTaxGUI {
                 return;
             }
 
-            if (questionCount == 8) {
+            if (questionCount == 2) {
                 employer = questionTextField.getText();
 
                 t4 = new T4(profile, year, employer);
@@ -247,4 +262,5 @@ public class RattleTaxGUI {
         questionPanel = null;
         finalPanel = null;
     }
+
 }
