@@ -5,6 +5,7 @@ import model.T4;
 import model.T4Info;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
 
@@ -88,10 +89,17 @@ public class RattleTaxGUI {
         startPanel = new JPanel();
         startPanel.setLayout(null);
 
-        startButton = new JButton(new StartAction());
-        startButton.setBounds(100,450,150,45);
+        ImageIcon form = new ImageIcon("./data/homePage.png");
+        Image img = form.getImage();
+        JLabel formImage = new JLabel();
+        formImage.setBounds(0,0,1440,680);
+        formImage.setIcon(new ImageIcon(img));
+        startPanel.add(formImage);
 
-        startPanel.add(startButton);
+        startButton = new JButton(new StartAction());
+        startButton.setBounds(115,450,115,60);
+
+        formImage.add(startButton);
         startPanel.setVisible(true);
 
         frame.add(startPanel);
@@ -100,7 +108,7 @@ public class RattleTaxGUI {
     private class StartAction extends AbstractAction {
 
         public StartAction() {
-            super("Get Started");
+            super("Let's Go!");
         }
 
         @Override
@@ -110,46 +118,55 @@ public class RattleTaxGUI {
     }
 
     private void switchToProfileSetup() {
+        int width = 313;
+        int height = 56;
+
         startPanel.setVisible(false);
         frame.remove(startPanel);
 
         profilePanel = new JPanel();
         profilePanel.setLayout(null);
 
+        ImageIcon form = new ImageIcon("./data/ProfileFrame.png");
+        Image img = form.getImage();
+        JLabel formImage = new JLabel();
+        formImage.setBounds(0,0,1440,680);
+        formImage.setIcon(new ImageIcon(img));
+
         profileButton = new JButton(new ProfileAction());
-        profileButton.setBounds(100, 450,150,45);
-        profilePanel.add(profileButton);
+        profileButton.setBounds(255,560,115,70);
+        formImage.add(profileButton);
 
         firstNameField = new JTextField();
-        firstNameField.setBounds(100,150,100,45);
-        profilePanel.add(firstNameField);
+        firstNameField.setBounds(123,220,width,height);
+        formImage.add(firstNameField);
 
         lastNameField = new JTextField();
-        lastNameField.setBounds(200,150,100,45);
-        profilePanel.add(lastNameField);
+        lastNameField.setBounds(493,220,width,height);
+        formImage.add(lastNameField);
 
         sinField = new JTextField();
-        sinField.setBounds(300,150,100,45);
-        profilePanel.add(sinField);
+        sinField.setBounds(123,422,width,height);
+        formImage.add(sinField);
 
         dobField = new JTextField();
-        dobField.setBounds(400,150,100,45);
-        profilePanel.add(dobField);
+        dobField.setBounds(493,422,width,height);
+        formImage.add(dobField);
 
         addressField = new JTextField();
-        addressField.setBounds(500,150,100,45);
-        profilePanel.add(addressField);
+        addressField.setBounds(123,318,width,height);
+        formImage.add(addressField);
 
         maritalField = new JTextField();
-        maritalField.setBounds(600,150,100,45);
-        profilePanel.add(maritalField);
+        maritalField.setBounds(493,318,width,height);
+        formImage.add(maritalField);
 
+        profilePanel.add(formImage);
 
         profilePanel.setVisible(true);
         frame.add(profilePanel);
 
         frame.setVisible(true);
-
     }
 
     private class ProfileAction extends AbstractAction {
@@ -175,28 +192,37 @@ public class RattleTaxGUI {
     }
 
     private void switchToQuestionnaire() {
+        int width = 368;
+        int height = 56;
+
         profilePanel.setVisible(false);
         frame.remove(profilePanel);
 
         questionPanel = new JPanel();
         questionPanel.setLayout(null);
 
+        ImageIcon form = new ImageIcon("./data/Frame.png");
+        Image img = form.getImage();
+        JLabel formImage = new JLabel();
+        formImage.setBounds(0,0,1440,680);
+        formImage.setIcon(new ImageIcon(img));
+
         questionButton = new JButton(new QuestionAction());
-        questionButton.setBounds(100,450,150,45);
-        questionPanel.add(questionButton);
+        questionButton.setBounds(255,543,115,70);
+        formImage.add(questionButton);
 
         questionTextField = new JTextField();
-        questionTextField.setBounds(275,450,300,45);
-        questionPanel.add(questionTextField);
+        questionTextField.setBounds(104,437,width,height);
+        formImage.add(questionTextField);
 
         questionLabel = new JLabel("Please enter the year you are filing for.");
         questionLabel.setBounds(100,50,300,200);
-        questionPanel.add(questionLabel);
+        formImage.add(questionLabel);
+        questionPanel.add(formImage);
         questionPanel.setVisible(true);
         frame.add(questionPanel);
 
         frame.setVisible(true);
-
     }
 
 
@@ -214,7 +240,8 @@ public class RattleTaxGUI {
                 year = Integer.parseInt(questionTextField.getText());
                 questionTextField.setText("");
                 questionLabel.setText("Please enter the employer you are filing for.");
-                questionLabel.setVisible(true);
+                //questionLabel.setBounds(100,50,300,200);
+                //questionLabel.setVisible(true);
                 questionCount +=1;
                 return;
             }
@@ -237,6 +264,7 @@ public class RattleTaxGUI {
                 questionCount +=1;
                 return;
             }
+
             if (questionCount == 4) {
                 t4.fillBox(12, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
@@ -244,25 +272,32 @@ public class RattleTaxGUI {
                 questionCount +=1;
                 return;
             }
+
             if (questionCount == 5) {
                 t4.fillBox(14, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
                 questionLabel.setText(t4Info.getQuestion(22));
+                questionLabel.setSize(780,230);
                 questionCount +=1;
                 return;
-            }if (questionCount == 6) {
+            }
+
+            if (questionCount == 6) {
                 t4.fillBox(22, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
                 questionLabel.setText(t4Info.getQuestion(16));
                 questionCount +=1;
                 return;
-            }if (questionCount == 7) {
+            }
+
+            if (questionCount == 7) {
                 t4.fillBox(16, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
                 questionLabel.setText(t4Info.getQuestion(24));
                 questionCount +=1;
                 return;
             }
+
             if (questionCount == 8) {
                 t4.fillBox(24, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
@@ -270,6 +305,7 @@ public class RattleTaxGUI {
                 questionCount +=1;
                 return;
             }
+
             if (questionCount == 9) {
                 t4.fillBox(16, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
@@ -277,6 +313,7 @@ public class RattleTaxGUI {
                 questionCount +=1;
                 return;
             }
+
             if (questionCount == 10) {
                 t4.fillBox(26, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
@@ -284,6 +321,7 @@ public class RattleTaxGUI {
                 questionCount +=1;
                 return;
             }
+
             if (questionCount == 11) {
                 t4.fillBox(18, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
@@ -291,6 +329,7 @@ public class RattleTaxGUI {
                 questionCount +=1;
                 return;
             }
+
             if (questionCount == 12) {
                 t4.fillBox(44, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
@@ -298,32 +337,39 @@ public class RattleTaxGUI {
                 questionCount +=1;
                 return;
             }
+
             if (questionCount == 13) {
                 t4.fillBox(20, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
                 questionLabel.setText(t4Info.getQuestion(46));
                 questionCount +=1;
                 return;
-            }if (questionCount == 14) {
+            }
+
+            if (questionCount == 14) {
                 t4.fillBox(46, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
                 questionLabel.setText(t4Info.getQuestion(52));
                 questionCount +=1;
                 return;
             }
+
             if (questionCount == 15) {
                 t4.fillBox(52, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
                 questionLabel.setText(t4Info.getQuestion(50));
                 questionCount +=1;
                 return;
-            }if (questionCount == 16) {
+            }
+
+            if (questionCount == 16) {
                 t4.fillBox(50, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
                 questionLabel.setText(t4Info.getQuestion(55));
                 questionCount +=1;
                 return;
             }
+
             if (questionCount == 17) {
                 t4.fillBox(55, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
@@ -345,8 +391,11 @@ public class RattleTaxGUI {
         questionPanel.setVisible(false);
         frame.remove(questionPanel);
 
+        ImageIcon form = new ImageIcon("T4 Form.png");
+
         finalPanel = new JPanel();
         finalPanel.setLayout(null);
+        finalPanel.add(new JLabel(form));
         HashMap<Integer, Double> t4Filled = t4.getT4();
         boxEmployer = new JLabel(t4.getEmployer());
         boxEmployer.setBounds(10,10,80,25);

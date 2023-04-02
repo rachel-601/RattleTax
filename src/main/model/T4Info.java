@@ -8,7 +8,7 @@ public class T4Info {
     public T4Info() {
         t4Info.put(54, "Please enter your employer's account number");
         t4Info.put(12, "Your SIN number");
-        t4Info.put(14, "Employment income" + "\nThe total amount of money that an individual earns from their job, " +
+        t4Info.put(14, "Employment income \nThe total amount of money that an individual earns from their job, " +
                 "including salary, wages, tips, bonuses, and other forms of compensation.");
         t4Info.put(22, "Income tax deducted" + "\nThe money taken out of your salary or income before you receive it, " +
                 "to pay for the taxes you owe to the government.");
