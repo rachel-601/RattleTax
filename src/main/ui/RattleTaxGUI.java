@@ -34,7 +34,7 @@ public class RattleTaxGUI {
     private JButton startButton;
     private JButton questionButton;
     private JTextField questionTextField;
-    private JTextArea questionTextArea;
+    private JLabel questionLabel;
     private JTextArea finalForm;
     private JButton backToStartButton;
     private JButton profileButton;
@@ -175,8 +175,8 @@ public class RattleTaxGUI {
     }
 
     private void switchToQuestionnaire() {
-        startPanel.setVisible(false);
-        frame.remove(startPanel);
+        profilePanel.setVisible(false);
+        frame.remove(profilePanel);
 
         questionPanel = new JPanel();
         questionPanel.setLayout(null);
@@ -189,10 +189,9 @@ public class RattleTaxGUI {
         questionTextField.setBounds(275,450,300,45);
         questionPanel.add(questionTextField);
 
-        questionTextArea = new JTextArea("Please enter the year you are filing for.");
-        questionTextArea.setBounds(100,50,300,200);
-        questionPanel.add(questionTextArea);
-
+        questionLabel = new JLabel("Please enter the year you are filing for.");
+        questionLabel.setBounds(100,50,300,200);
+        questionPanel.add(questionLabel);
         questionPanel.setVisible(true);
         frame.add(questionPanel);
 
@@ -214,7 +213,8 @@ public class RattleTaxGUI {
             if (questionCount == 1) {
                 year = Integer.parseInt(questionTextField.getText());
                 questionTextField.setText("");
-                questionTextArea.setText("Please enter the employer you are filing for.");
+                questionLabel.setText("Please enter the employer you are filing for.");
+                questionLabel.setVisible(true);
                 questionCount +=1;
                 return;
             }
@@ -225,14 +225,118 @@ public class RattleTaxGUI {
                 t4 = new T4(profile, year, employer);
 
                 questionTextField.setText("");
-                questionTextArea.setText(t4Info.getQuestion(54));
+                questionLabel.setText(t4Info.getQuestion(54));
                 questionCount +=1;
                 return;
             }
 
+            if (questionCount == 3) {
+                t4.fillBox(54, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(12));
+                questionCount +=1;
+                return;
+            }
+            if (questionCount == 4) {
+                t4.fillBox(12, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(14));
+                questionCount +=1;
+                return;
+            }
+            if (questionCount == 5) {
+                t4.fillBox(14, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(22));
+                questionCount +=1;
+                return;
+            }if (questionCount == 6) {
+                t4.fillBox(22, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(16));
+                questionCount +=1;
+                return;
+            }if (questionCount == 7) {
+                t4.fillBox(16, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(24));
+                questionCount +=1;
+                return;
+            }
+            if (questionCount == 8) {
+                t4.fillBox(24, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(17));
+                questionCount +=1;
+                return;
+            }
+            if (questionCount == 9) {
+                t4.fillBox(16, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(26));
+                questionCount +=1;
+                return;
+            }
+            if (questionCount == 10) {
+                t4.fillBox(26, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(18));
+                questionCount +=1;
+                return;
+            }
+            if (questionCount == 11) {
+                t4.fillBox(18, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(44));
+                questionCount +=1;
+                return;
+            }
+            if (questionCount == 12) {
+                t4.fillBox(44, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(20));
+                questionCount +=1;
+                return;
+            }
+            if (questionCount == 13) {
+                t4.fillBox(20, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(46));
+                questionCount +=1;
+                return;
+            }if (questionCount == 14) {
+                t4.fillBox(46, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(52));
+                questionCount +=1;
+                return;
+            }
+            if (questionCount == 15) {
+                t4.fillBox(52, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(50));
+                questionCount +=1;
+                return;
+            }if (questionCount == 16) {
+                t4.fillBox(50, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(55));
+                questionCount +=1;
+                return;
+            }
+            if (questionCount == 17) {
+                t4.fillBox(55, Double.parseDouble(questionTextField.getText()));
+                questionTextField.setText("");
+                questionLabel.setText(t4Info.getQuestion(56));
+                questionCount +=1;
+                return;
+            }
 
-
-
+            if (questionCount == 18) {
+                t4.fillBox(56, Double.parseDouble(questionTextField.getText()));
+                switchToEndScreen();
+                return;
+            }
 
         }
     }
