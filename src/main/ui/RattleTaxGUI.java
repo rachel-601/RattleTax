@@ -1,9 +1,12 @@
 package ui;
 
-import model.*;
+import model.Profile;
+import model.T4;
+import model.T4Info;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 
 public class RattleTaxGUI {
     // data elements
@@ -42,6 +45,27 @@ public class RattleTaxGUI {
     private JTextField addressField;
     private JTextField maritalField;
 
+    // T4 form
+    private JLabel boxEmployer;
+    private JLabel boxName;
+    private JLabel boxYear;
+    private JLabel boxAddress;
+    private JLabel box54;
+    private JLabel box12;
+    private JLabel box14;
+    private JLabel box22;
+    private JLabel box16;
+    private JLabel box24;
+    private JLabel box17;
+    private JLabel box26;
+    private JLabel box18;
+    private JLabel box44;
+    private JLabel box20;
+    private JLabel box46;
+    private JLabel box52;
+    private JLabel box50;
+    private JLabel box55;
+    private JLabel box56;
 
     public RattleTaxGUI() {
         frame = new JFrame();
@@ -219,14 +243,71 @@ public class RattleTaxGUI {
 
         finalPanel = new JPanel();
         finalPanel.setLayout(null);
+        HashMap<Integer, Double> t4Filled = t4.getT4();
+        boxEmployer = new JLabel(t4.getEmployer());
+        boxEmployer.setBounds(10,10,80,25);
+        finalPanel.add(boxEmployer);
+        boxName = new JLabel(profile.getLastName() + profile.getFirstName() +
+                profile.getFirstName().substring(0,1) + profile.getLastName().substring(0,1));
+        boxName.setBounds(10,10,80,25);
+        finalPanel.add(boxName);
+        boxYear = new JLabel(Integer.toString(t4.getYear()));
+        boxYear.setBounds(10,10,80,25);
+        finalPanel.add(boxYear);
+        boxAddress = new JLabel(profile.getAddress());
+        boxAddress.setBounds(10,10,80,25);
+        finalPanel.add(boxAddress);
+        // Numbered boxes
+        box12 = new JLabel(Double.toString(t4Filled.get(12)));
+        box12.setBounds(10,10,80,25);
+        finalPanel.add(box12);
+        box14 = new JLabel(Double.toString(t4Filled.get(14)));
+        box14.setBounds(10,10,80,25);
+        finalPanel.add(box14);
+        box16 = new JLabel(Double.toString(t4Filled.get(16)));
+        box16.setBounds(10,10,80,25);
+        finalPanel.add(box16);
+        box17 = new JLabel(Double.toString(t4Filled.get(17)));
+        box17.setBounds(10,10,80,25);
+        finalPanel.add(box17);
+        box18 = new JLabel(Double.toString(t4Filled.get(18)));
+        box18.setBounds(10,10,80,25);
+        finalPanel.add(box18);
+        box20 = new JLabel(Double.toString(t4Filled.get(20)));
+        box20.setBounds(10,10,80,25);
+        finalPanel.add(box20);
+        box22 = new JLabel(Double.toString(t4Filled.get(22)));
+        box22.setBounds(10,10,80,25);
+        finalPanel.add(box22);
+        box24 = new JLabel(Double.toString(t4Filled.get(24)));
+        box24.setBounds(10,10,80,25);
+        finalPanel.add(box24);
+        box26 = new JLabel(Double.toString(t4Filled.get(26)));
+        box26.setBounds(10,10,80,25);
+        finalPanel.add(box26);
+        box44 = new JLabel(Double.toString(t4Filled.get(44)));
+        box44.setBounds(10,10,80,25);
+        finalPanel.add(box44);
+        box46 = new JLabel(Double.toString(t4Filled.get(46)));
+        box46.setBounds(10,10,80,25);
+        finalPanel.add(box46);
+        box50 = new JLabel(Double.toString(t4Filled.get(50)));
+        box50.setBounds(10,10,80,25);
+        finalPanel.add(box50);
+        box52 = new JLabel(Double.toString(t4Filled.get(52)));
+        box52.setBounds(10,10,80,25);
+        finalPanel.add(box52);
+        box54 = new JLabel(Double.toString(t4Filled.get(54)));
+        box54.setBounds(10,10,80,25);
+        finalPanel.add(box54);
+        box55 = new JLabel(Double.toString(t4Filled.get(55)));
+        box55.setBounds(10,10,80,25);
+        finalPanel.add(box55);
+        box56 = new JLabel(Double.toString(t4Filled.get(56)));
+        box56.setBounds(10,10,80,25);
+        finalPanel.add(box56);
 
-        finalForm = new JTextArea(t4.generateForm());
-        finalForm.setBounds(50,50,600,200);
-        finalPanel.add(finalForm);
 
-        backToStartButton = new JButton(new BackToStartAction());
-        backToStartButton.setBounds(50,450,50,25);
-        finalPanel.add(backToStartButton);
 
         finalPanel.setVisible(true);
         frame.add(finalPanel);
@@ -234,33 +315,5 @@ public class RattleTaxGUI {
         frame.setVisible(true);
     }
 
-    private class BackToStartAction extends AbstractAction {
-        public BackToStartAction() {
-            super("Return To Homepage");
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            initializeStartPanel();
-        }
-    }
-
-    // TODO -> make this method not break the code
-    private void nullifyChanges() {
-        profile = null;
-        t4 = null;
-        t4Info = null;
-        frame.remove(startPanel);
-        frame.remove(questionPanel);
-        frame.remove(finalPanel);
-
-        startPanel.setVisible(false);
-        questionPanel.setVisible(false);
-        finalPanel.setVisible(false);
-
-        startPanel = null;
-        questionPanel = null;
-        finalPanel = null;
-    }
 
 }
