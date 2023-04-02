@@ -23,6 +23,8 @@ public class RattleTaxGUI {
     private String address;
     private Boolean marital;
 
+    int questionCount = 1;
+
     private int year;
     private String employer;
 
@@ -35,9 +37,7 @@ public class RattleTaxGUI {
     private JButton startButton;
     private JButton questionButton;
     private JTextField questionTextField;
-    private JLabel questionLabel;
-    private JTextArea finalForm;
-    private JButton backToStartButton;
+    private JTextArea questionLabel;
     private JButton profileButton;
     private JTextField firstNameField;
     private JTextField lastNameField;
@@ -215,8 +215,11 @@ public class RattleTaxGUI {
         questionTextField.setBounds(104,437,width,height);
         formImage.add(questionTextField);
 
-        questionLabel = new JLabel("Please enter the year you are filing for.");
-        questionLabel.setBounds(100,50,300,200);
+        questionLabel = new JTextArea("Please enter the year you are filing for.");
+        questionLabel.setEditable(false);
+        questionLabel.setBounds(100,50,800,400);
+        questionLabel.setOpaque(false);
+        questionLabel.setBackground(new Color(0,0,0,0));
         formImage.add(questionLabel);
         questionPanel.add(formImage);
         questionPanel.setVisible(true);
@@ -225,9 +228,7 @@ public class RattleTaxGUI {
         frame.setVisible(true);
     }
 
-
     private class QuestionAction extends AbstractAction {
-        int questionCount = 1;
 
         public QuestionAction() {
             super("Confirm");
@@ -240,8 +241,7 @@ public class RattleTaxGUI {
                 year = Integer.parseInt(questionTextField.getText());
                 questionTextField.setText("");
                 questionLabel.setText("Please enter the employer you are filing for.");
-                //questionLabel.setBounds(100,50,300,200);
-                //questionLabel.setVisible(true);
+                questionLabel.setVisible(true);
                 questionCount +=1;
                 return;
             }
@@ -259,14 +259,14 @@ public class RattleTaxGUI {
 
             if (questionCount == 3) {
                 t4.fillBox(54, Double.parseDouble(questionTextField.getText()));
-                questionTextField.setText("");
-                questionLabel.setText(t4Info.getQuestion(12));
+                questionTextField.setText(Integer.toString(profile.getSin()));
+                questionLabel.setText("Confirm your SIN number:");
                 questionCount +=1;
                 return;
             }
 
             if (questionCount == 4) {
-                t4.fillBox(12, Double.parseDouble(questionTextField.getText()));
+                //t4.fillBox(12, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
                 questionLabel.setText(t4Info.getQuestion(14));
                 questionCount +=1;
@@ -277,7 +277,6 @@ public class RattleTaxGUI {
                 t4.fillBox(14, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
                 questionLabel.setText(t4Info.getQuestion(22));
-                questionLabel.setSize(780,230);
                 questionCount +=1;
                 return;
             }
@@ -391,76 +390,83 @@ public class RattleTaxGUI {
         questionPanel.setVisible(false);
         frame.remove(questionPanel);
 
-        ImageIcon form = new ImageIcon("T4 Form.png");
+//        ImageIcon form = new ImageIcon("./data/T4 Form.png");
+//        Image img = form.getImage();
+//        JLabel formImage = new JLabel();
+//        formImage.setBounds(0,0,1440,680);
+//        formImage.setIcon(new ImageIcon(img));
 
         finalPanel = new JPanel();
         finalPanel.setLayout(null);
-        finalPanel.add(new JLabel(form));
+        //finalPanel.add(formImage);
         HashMap<Integer, Double> t4Filled = t4.getT4();
-        boxEmployer = new JLabel(t4.getEmployer());
-        boxEmployer.setBounds(10,10,80,25);
+        String employer = "Employer: " + t4.getEmployer();
+        boxEmployer = new JLabel(employer);
+        boxEmployer.setBounds(20,25,200,25);
         finalPanel.add(boxEmployer);
-        boxName = new JLabel(profile.getLastName() + profile.getFirstName() +
-                profile.getFirstName().substring(0,1) + profile.getLastName().substring(0,1));
-        boxName.setBounds(10,10,80,25);
+        String name = "Employee Name: " + profile.getLastName() + " " + profile.getFirstName() +
+                " " + profile.getFirstName().substring(0,1) + profile.getLastName().substring(0,1);
+        boxName = new JLabel(name);
+        boxName.setBounds(20,50,200,20);
         finalPanel.add(boxName);
-        boxYear = new JLabel(Integer.toString(t4.getYear()));
-        boxYear.setBounds(10,10,80,25);
+        String year = "Year: " + Integer.toString(t4.getYear());
+        boxYear = new JLabel(year);
+        boxYear.setBounds(20,75,200,25);
         finalPanel.add(boxYear);
-        boxAddress = new JLabel(profile.getAddress());
-        boxAddress.setBounds(10,10,80,25);
+        String address = "Employee Address: " + profile.getAddress();
+        boxAddress = new JLabel(address);
+        boxAddress.setBounds(20,100,200,25);
         finalPanel.add(boxAddress);
         // Numbered boxes
-        box12 = new JLabel(Double.toString(t4Filled.get(12)));
-        box12.setBounds(10,10,80,25);
+        String twelve = "12: " + Double.toString(t4Filled.get(12));
+        box12 = new JLabel(twelve);
+        box12.setBounds(20,125,200,25);
         finalPanel.add(box12);
-        box14 = new JLabel(Double.toString(t4Filled.get(14)));
-        box14.setBounds(10,10,80,25);
+        box14 = new JLabel("14: " + Double.toString(t4Filled.get(14)));
+        box14.setBounds(20,150,200,25);
         finalPanel.add(box14);
-        box16 = new JLabel(Double.toString(t4Filled.get(16)));
-        box16.setBounds(10,10,80,25);
+        box16 = new JLabel("16: " + Double.toString(t4Filled.get(16)));
+        box16.setBounds(20,175,200,25);
         finalPanel.add(box16);
         box17 = new JLabel(Double.toString(t4Filled.get(17)));
-        box17.setBounds(10,10,80,25);
+        box17.setBounds(20,200,200,25);
         finalPanel.add(box17);
         box18 = new JLabel(Double.toString(t4Filled.get(18)));
-        box18.setBounds(10,10,80,25);
+        box18.setBounds(20,225,200,25);
         finalPanel.add(box18);
         box20 = new JLabel(Double.toString(t4Filled.get(20)));
-        box20.setBounds(10,10,80,25);
+        box20.setBounds(20,250,200,25);
         finalPanel.add(box20);
         box22 = new JLabel(Double.toString(t4Filled.get(22)));
-        box22.setBounds(10,10,80,25);
+        box22.setBounds(20,275,200,25);
         finalPanel.add(box22);
         box24 = new JLabel(Double.toString(t4Filled.get(24)));
-        box24.setBounds(10,10,80,25);
+        box24.setBounds(20,300,200,25);
         finalPanel.add(box24);
         box26 = new JLabel(Double.toString(t4Filled.get(26)));
-        box26.setBounds(10,10,80,25);
+        box26.setBounds(20,325,200,25);
         finalPanel.add(box26);
         box44 = new JLabel(Double.toString(t4Filled.get(44)));
-        box44.setBounds(10,10,80,25);
+        box44.setBounds(20,350,200,25);
         finalPanel.add(box44);
         box46 = new JLabel(Double.toString(t4Filled.get(46)));
-        box46.setBounds(10,10,80,25);
+        box46.setBounds(20,375,200,25);
         finalPanel.add(box46);
         box50 = new JLabel(Double.toString(t4Filled.get(50)));
-        box50.setBounds(10,10,80,25);
+        box50.setBounds(20,400,200,25);
         finalPanel.add(box50);
         box52 = new JLabel(Double.toString(t4Filled.get(52)));
-        box52.setBounds(10,10,80,25);
+        box52.setBounds(20,425,200,25);
         finalPanel.add(box52);
         box54 = new JLabel(Double.toString(t4Filled.get(54)));
-        box54.setBounds(10,10,80,25);
+        box54.setBounds(20,450,200,25);
         finalPanel.add(box54);
         box55 = new JLabel(Double.toString(t4Filled.get(55)));
-        box55.setBounds(10,10,80,25);
+        box55.setBounds(20,475,200,25);
         finalPanel.add(box55);
         box56 = new JLabel(Double.toString(t4Filled.get(56)));
-        box56.setBounds(10,10,80,25);
+        box56.setBounds(20,500,200,25);
         finalPanel.add(box56);
-
-
 
         finalPanel.setVisible(true);
         frame.add(finalPanel);
