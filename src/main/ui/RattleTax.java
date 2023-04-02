@@ -1,8 +1,8 @@
 package ui;
 
-public class Main {
+public class RattleTax {
     public static void main(String[] args) {
-        new RattleTaxApp();
+        new RattleTaxGUI();
     }
 
 }
