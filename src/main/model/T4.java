@@ -67,4 +67,8 @@ public class T4 {
     }
 
 
+    //TODO implement -> generate text to go into JTextArea that represents a completed T4 Form
+    public String generateForm() {
+        return "test";
+    }
 }

@@ -6,7 +6,7 @@ public class T4Info {
     private HashMap<Integer, String> t4Info = new HashMap<>();
 
     public T4Info() {
-        t4Info.put(54, "Employer's account number");
+        t4Info.put(54, "Please enter your employer's account number");
         t4Info.put(12, "Your SIN number");
         t4Info.put(14, "Employment income" + "\nThe total amount of money that an individual earns from their job, " +
                 "including salary, wages, tips, bonuses, and other forms of compensation.");
@@ -49,5 +49,9 @@ public class T4Info {
                 "individual's employment income on which they are required to pay PPIP premiums and which is used to " +
                 "calculate their future retirement, survivor, and disability benefits under the PPIP program in some " +
                 "Canadian provinces.");
+    }
+
+    public String getQuestion(Integer i) {
+        return t4Info.get(i);
     }
 }

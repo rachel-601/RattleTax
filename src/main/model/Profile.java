@@ -28,7 +28,7 @@ public class Profile {
     }
 
     public int getSin() {
-        return sin;
+        return this.sin;
     }
 
     public String getDob() {
