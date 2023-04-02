@@ -23,6 +23,8 @@ public class RattleTaxGUI {
     private String address;
     private Boolean marital;
 
+    int questionCount = 1;
+
     private int year;
     private String employer;
 
@@ -35,9 +37,7 @@ public class RattleTaxGUI {
     private JButton startButton;
     private JButton questionButton;
     private JTextField questionTextField;
-    private JLabel questionLabel;
-    private JTextArea finalForm;
-    private JButton backToStartButton;
+    private JTextArea questionLabel;
     private JButton profileButton;
     private JTextField firstNameField;
     private JTextField lastNameField;
@@ -215,8 +215,11 @@ public class RattleTaxGUI {
         questionTextField.setBounds(104,437,width,height);
         formImage.add(questionTextField);
 
-        questionLabel = new JLabel("Please enter the year you are filing for.");
-        questionLabel.setBounds(100,50,300,200);
+        questionLabel = new JTextArea("Please enter the year you are filing for.");
+        questionLabel.setEditable(false);
+        questionLabel.setBounds(100,50,800,400);
+        questionLabel.setOpaque(false);
+        questionLabel.setBackground(new Color(0,0,0,0));
         formImage.add(questionLabel);
         questionPanel.add(formImage);
         questionPanel.setVisible(true);
@@ -225,9 +228,7 @@ public class RattleTaxGUI {
         frame.setVisible(true);
     }
 
-
     private class QuestionAction extends AbstractAction {
-        int questionCount = 1;
 
         public QuestionAction() {
             super("Confirm");
@@ -240,7 +241,6 @@ public class RattleTaxGUI {
                 year = Integer.parseInt(questionTextField.getText());
                 questionTextField.setText("");
                 questionLabel.setText("Please enter the employer you are filing for.");
-                questionLabel.setBounds(100,50,300,200);
                 questionLabel.setVisible(true);
                 questionCount +=1;
                 return;
@@ -277,7 +277,6 @@ public class RattleTaxGUI {
                 t4.fillBox(14, Double.parseDouble(questionTextField.getText()));
                 questionTextField.setText("");
                 questionLabel.setText(t4Info.getQuestion(22));
-                questionLabel.setSize(780,230);
                 questionCount +=1;
                 return;
             }
