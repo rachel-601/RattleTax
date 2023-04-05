@@ -1,5 +1,5 @@
 # RattleTax
-*~ Product for UBC BizTech's ProduHacks hackathon ~*
+~ Product for UBC BizTech's ProduHacks hackathon ~
 
 ### Inspiration
 It's tax season once again, and everyone, especially students, are feeling immensely stressed trying to file their tax 
